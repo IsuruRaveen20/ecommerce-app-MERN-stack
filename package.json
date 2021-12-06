@@ -1,0 +1,11 @@
+{
+  "name": "product-app-mern",
+  "version": "1.0.0",
+  "description": "Ecommerce web application using MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Isuru Raveen",
+  "license": "MIT"
+}
