@@ -10,10 +10,10 @@ import './signup.css';
 
 const Signup = () => {
         const [formData, setFormData] = useState ({
-            username : '',
-            email: '',
-            password:'',
-            password2:'',
+            username : 'jo',
+            email: 'jo@gmail.com',
+            password:'123',
+            password2:'123',
             successMsg: false,
             errorMsg:false,
             loading: false
@@ -53,9 +53,13 @@ const Signup = () => {
                 });
             }else{
                 //Success
-                setFormData({
-                    ...formData,successMsg:'Validation Success'
-                });
+                //Structure form data
+                const {username, email, password} = formData;
+                const data = {username , email, password}
+
+                setFormData({...formData, loading: true});
+
+                Signup(data)
             }
 
             console.log(formData);
@@ -150,7 +154,9 @@ const Signup = () => {
                     <div className='col-md-5 mx-auto align-self-center'>
                     {successMsg && showSuccssMsg(successMsg)}
                     {errorMsg && showErrorMsg(errorMsg)}
-                    {loading && <div className='text-center'>showLoading()</div>}
+                    {loading && (
+                        <div className='text-center pb-4'>{showLoading()}</div>
+                    )}
                         { showSignupForm() }    
                         {/* <p style={{color:'black'}}>{ JSON.stringify(formData)}</p> */}
                     </div>
