@@ -1,7 +1,9 @@
 .signup-container{
-	background-image: url('./img/2.png');
+	background-image: url('./img/1.png');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	opacity: 0.8;
+	margin:auto;
+	width: 100%;
+	padding: 250px;
 }

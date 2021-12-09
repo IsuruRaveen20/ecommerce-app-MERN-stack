@@ -5,15 +5,16 @@ import isEmpty from 'validator/lib/isEmpty';
 import equals from 'validator/lib/equals';
 import { showErrorMsg, showSuccssMsg } from './helpers/message';
 import { showLoading } from './helpers/loading'; 
+import {} from '../api/auth';
 import './signup.css';
 
 
 const Signup = () => {
         const [formData, setFormData] = useState ({
-            username : 'jo',
-            email: 'jo@gmail.com',
-            password:'123',
-            password2:'123',
+            username : '',
+            email: '',
+            password:'',
+            password2:'',
             successMsg: false,
             errorMsg:false,
             loading: false
@@ -60,6 +61,21 @@ const Signup = () => {
                 setFormData({...formData, loading: true});
 
                 Signup(data)
+                    .then((response)=> {
+                        console.log(response);
+                        setFormData({
+                            username:'',
+                            email:'',
+                            password:'',
+                            password2:'',
+                            loading:false,
+                            successMsg:response.data.successMessage
+                        });
+                    })
+                    .catch(err =>{
+                        console.log('Axios signup error', err);
+                        setFormData({...formData, loading:false});
+                    });
             }
 
             console.log(formData);
@@ -141,7 +157,7 @@ const Signup = () => {
                 </button>
             </div>
             {/* already have account */}
-            <p className='text-center text-white'>
+            <p className='text-center text-black'>
                 Have an account? <Link to='/signin'>Log In</Link>
             </p>
         </form>
