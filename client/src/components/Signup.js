@@ -5,76 +5,84 @@ import isEmpty from 'validator/lib/isEmpty';
 import equals from 'validator/lib/equals';
 import { showErrorMsg, showSuccssMsg } from './helpers/message';
 import { showLoading } from './helpers/loading'; 
-import {} from '../api/auth';
-import './signup.css';
+import { signup } from '../api/auth';
 
 
 const Signup = () => {
         const [formData, setFormData] = useState ({
-            username : '',
-            email: '',
-            password:'',
-            password2:'',
+            username : 'john',
+            email: 'john@gmail.com',
+            password:'abc123',
+            password2:'abc123',
             successMsg: false,
             errorMsg:false,
             loading: false
-        })
+        });
 
         /*Desctructe the State*/
-        const {username, email, password,password2,successMsg,errorMsg, loading}= formData;
+        const {
+            username, 
+            email,
+            password,
+            password2,
+            successMsg,
+            errorMsg, 
+            loading
+        }= formData;
 
         /************************************************************************* */
         /*Evenet Handelers*/////////////////////////////////////////////////////////
-        const handleChange = evt => {
+        const handleChange = (evt) => {
             // console.log(evt);
             setFormData({
                 ...formData,
                 [evt.target.name]:evt.target.value,
                 successMsg:'',
-                errorMsg:''
-
-            })
+                errorMsg:'',
+            });
         };
 
+        //press submit button
         const handleSubmit = (evt) => {
             evt.preventDefault();
 
             //Client side validation
             if(isEmpty(username) || isEmpty(email) || isEmpty (password) || isEmpty(password2)){
                 setFormData({
-                    ...formData, errorMsg:'All fields are required'
+                    ...formData, errorMsg:'All fields are required',
                 });
             }else if(!isEmail(email)){
                 setFormData({
-                    ...formData,errorMsg:'invalid email'
+                    ...formData,errorMsg:'invalid email',
                 });
             }else if(!equals(password, password2)){
                 setFormData({
-                    ...formData,errorMsg:'Password Do not Match'
+                    ...formData,errorMsg:'Password Do not Match',
                 });
             }else{
                 //Success
                 //Structure form data
                 const {username, email, password} = formData;
-                const data = {username , email, password}
+                const data = {username , email, password};
 
                 setFormData({...formData, loading: true});
 
-                Signup(data)
+                signup(data)
                     .then((response)=> {
-                        console.log(response);
+                        console.log('Axios signup sucess:', response);
                         setFormData({
                             username:'',
                             email:'',
                             password:'',
                             password2:'',
                             loading:false,
-                            successMsg:response.data.successMessage
+                            successMsg: response.data.successMessage,
                         });
                     })
-                    .catch(err =>{
-                        console.log('Axios signup error', err);
-                        setFormData({...formData, loading:false});
+                    .catch((err)=>{
+                        console.log('Axios signup error:', err);
+                        setFormData({...formData, loading:false, errorMsg: err.response.data.errorMessage,
+                        });
                     });
             }
 

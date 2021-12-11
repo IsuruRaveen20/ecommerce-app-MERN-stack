@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axios from 'axios';
 
 
 export const signup = async (data) => {
     const config = {
-        Headers:{
-            'Content-Type':'application/json'
+        headers:{
+            'Content-Type':'application/json',
         }, 
     };
 
