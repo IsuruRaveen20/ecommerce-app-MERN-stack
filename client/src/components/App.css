@@ -7,3 +7,13 @@
 	width: 100%;
 	padding: 250px;
 }
+
+.signin-container{
+	background-image: url('./img/2.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin:auto;
+	width: 100%;
+	padding: 250px;
+}
